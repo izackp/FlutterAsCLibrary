@@ -271,6 +271,14 @@ if (current_os == "win") {
   is_win = false
 }
 
+# Some library targets may be built as different type depending on the target
+# platform. This variable specifies the default library type for each target.
+if (is_fuchsia) {
+  default_library_type = "shared_library"
+} else {
+  default_library_type = "static_library"
+}
+
 # =============================================================================
 # SOURCES FILTERS
 # =============================================================================
@@ -568,8 +576,14 @@ set_defaults("test") {
 # which will identify the toolchain corresponding to the local system when
 # doing cross-compiles. When not cross-compiling, this will be the same as the
 # default toolchain.
+import("//build/toolchain/custom/custom.gni")
 
-if (is_win) {
+if (custom_toolchain != "") {
+  assert(custom_sysroot != "")
+  assert(custom_target_triple != "")
+  host_toolchain = "//build/toolchain/linux:clang_$host_cpu"
+  set_default_toolchain("//build/toolchain/custom")
+} else if (is_win) {
   # On windows we use the same toolchain for host and target by default.
   host_toolchain = "//build/toolchain/win:$current_cpu"
   set_default_toolchain("$host_toolchain")
@@ -615,6 +629,31 @@ if (is_win) {
     set_default_toolchain("//build/toolchain/mac:ios_clang_x64")
   } else {
     set_default_toolchain("//build/toolchain/mac:ios_clang_arm")
+  }
+}
+
+# Sets default dependencies for executable and shared_library targets.
+#
+# Variables
+#   no_default_deps: If true, no standard dependencies will be added.
+if (is_android) {
+  foreach(_target_type,
+          [
+            "executable",
+            "loadable_module",
+            "shared_library",
+          ]) {
+    template(_target_type) {
+      target(_target_type, target_name) {
+        forward_variables_from(invoker, "*", [ "no_default_deps" ])
+        if (!defined(deps)) {
+          deps = []
+        }
+        if (!defined(invoker.no_default_deps) || !invoker.no_default_deps) {
+          deps += [ "//third_party/libcxx" ]
+        }
+      }
+    }
   }
 }
 

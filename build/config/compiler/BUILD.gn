@@ -63,12 +63,13 @@ config("compiler") {
   # not be compatible with newer ones. To achieve this, we insert a synthetic
   # define into the compile line. We only do this for toolchains that we use
   # from buildtools.
-  toolchain_version = exec_script("//build/util/lastchange.py",
-                                  [
-                                    "--source-dir=" + rebase_path("//buildtools"),
-                                    "--revision-only",
-                                  ],
-                                  "trim string")
+  toolchain_version =
+      exec_script("//build/util/lastchange.py",
+                  [
+                    "--source-dir=" + rebase_path("//buildtools"),
+                    "--revision-only",
+                  ],
+                  "trim string")
   defines = [ "TOOLCHAIN_VERSION=$toolchain_version" ]
 
   # In general, Windows is totally different, but all the other builds share
@@ -303,7 +304,7 @@ config("compiler") {
 
     if (!is_android) {
       defines += [
-        "_FILE_OFFSET_BITS=64", # https://android.googlesource.com/platform/bionic/+/master/docs/32-bit-abi.md#32_bit-and
+        "_FILE_OFFSET_BITS=64",  # https://android.googlesource.com/platform/bionic/+/master/docs/32-bit-abi.md#32_bit-and
         "_LARGEFILE_SOURCE",
         "_LARGEFILE64_SOURCE",
       ]
@@ -398,7 +399,7 @@ config("compiler") {
       "-ffunction-sections",
       "-funwind-tables",
       "-fno-short-enums",
-      "-nostdinc++"
+      "-nostdinc++",
     ]
     if (!is_clang) {
       # Clang doesn't support these flags.
@@ -428,13 +429,10 @@ config("compiler") {
       "-Wl,--no-undefined",
       "-Wl,--exclude-libs,ALL",
       "-fuse-ld=lld",
+
+      # Enable identical code folding to reduce size.
+      "-Wl,--icf=all",
     ]
-    if (current_cpu == "arm") {
-      ldflags += [
-        # Enable identical code folding to reduce size.
-        "-Wl,--icf=all",
-      ]
-    }
 
     if (is_clang) {
       if (current_cpu == "arm") {
@@ -523,11 +521,6 @@ config("runtime_library") {
     # caution.
     cflags += [
       "-isystem" +
-          rebase_path("$android_libcpp_root/include", root_build_dir),
-      "-isystem" + rebase_path(
-              "$android_ndk_root/sources/cxx-stl/llvm-libc++abi/include",
-              root_build_dir),
-      "-isystem" +
           rebase_path("$android_ndk_root/sources/android/support/include",
                       root_build_dir),
       "-isystem" + rebase_path(
@@ -536,12 +529,13 @@ config("runtime_library") {
       "-D__ANDROID_API__=$android_api_level",
     ]
 
-    lib_dirs += [ "$android_libcpp_root/libs/$android_app_abi" ]
-
-    libs += [
-      "$android_libcpp_library",
-      "c++abi",
+    include_dirs = [
+      "//third_party/libcxx/include",
+      "//third_party/libcxxabi/include",
     ]
+
+    # libunwind and libandroid_support also live in $android_libcpp_root.
+    lib_dirs += [ "$android_libcpp_root/libs/$android_app_abi" ]
 
     if (android_api_level < 21) {
       libs += [ "android_support" ]
@@ -822,10 +816,9 @@ config("optimize") {
     cflags = [ "-Os" ] + common_optimize_on_cflags  # Favor size over speed.
   } else if (is_android) {
     cflags = [ "-Oz" ] + common_optimize_on_cflags  # Favor size over speed.
-    # TODO(goderbauer): re-enable when  https://github.com/flutter/flutter/issues/21686 is fixed
-    # if (enable_lto) {
-    #   lto_flags += [ "-flto" ]
-    # }
+    if (enable_lto) {
+      lto_flags += [ "-flto" ]
+    }
   } else {
     cflags = [ "-O2" ] + common_optimize_on_cflags
   }
