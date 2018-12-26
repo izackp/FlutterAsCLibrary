@@ -32,6 +32,10 @@ def _ExtractImportantEnvironment(output_of_set):
       'tmp',
       )
   env = {}
+  # This occasionally happens and leads to misleading SYSTEMROOT error messages
+  # if not caught here.
+  if output_of_set.count('=') == 0:
+    raise Exception('Invalid output_of_set. Value is:\n%s' % output_of_set)
   for line in output_of_set.splitlines():
     for envvar in envvars_to_save:
       if re.match(envvar + '=', line.lower()):
@@ -51,7 +55,7 @@ def _ExtractImportantEnvironment(output_of_set):
   return env
 
 
-def _SetupScript(target_cpu, sdk_dir):
+def _SetupScript(target_cpu, sdk_dir, tool_source):
   """Returns a command (with arguments) to be used to set up the
   environment."""
   # Check if we are running in the SDK command line environment and use
@@ -65,8 +69,8 @@ def _SetupScript(target_cpu, sdk_dir):
     # We only support x64-hosted tools.
     # TODO(scottmg|dpranke): Non-depot_tools toolchain: need to get Visual
     # Studio install location from registry.
-    return [os.path.normpath(os.path.join(os.environ['GYP_MSVS_OVERRIDE_PATH'],
-                                          'VC/vcvarsall.bat')),
+    return [os.path.normpath(os.path.join(tool_source,
+                                          'VC/Auxiliary/Build/vcvarsall.bat')),
             'amd64_x86' if target_cpu == 'x86' else 'amd64']
 
 
@@ -102,6 +106,7 @@ def main():
           '<visual studio path> <win tool path> <win sdk path> '
           '<runtime dirs> <target_cpu>')
     sys.exit(2)
+  vc_path = sys.argv[1]
   tool_source = sys.argv[2]
   win_sdk_path = sys.argv[3]
   runtime_dirs = sys.argv[4]
@@ -118,7 +123,7 @@ def main():
 
   for cpu in cpus:
     # Extract environment variables for subprocesses.
-    args = _SetupScript(cpu, win_sdk_path)
+    args = _SetupScript(cpu, win_sdk_path, vc_path)
     args.extend(('&&', 'set'))
     popen = subprocess.Popen(
         args, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
