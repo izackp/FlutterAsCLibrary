@@ -1,9 +1,9 @@
 # buildroot
 This is the build environment for the engine. The majority of the logic is contained here [izackp/engine](https://github.com/izackp/engine).
 
-I wanted to simplify the overall build environment, so I switched the project from using gsync for dependencies to github submodules. (Which is still in progress atm)
+I wanted to simplify the overall build environment, so I switched the project from using gsync for dependencies to github submodules. (Which is still in progress atm). Though I am a little concerned about using shallow checkout. If the dependency doesn't follow the remote HEAD commit closely then it won't be able to properly checkout the module. This still allows use to have a local repo way smaller than the 2GB it would normally take. Also, people more than likely already know how to use git submodules over gsync.
 
-For whoever is reading this, I still have a few more things to do. I've gotten the project successfully build after removing dart from the project. Its not at the point where you can just grab this and use this as a library. I may or may not need to make modifications and/or simplifications. The project was originally designed to run as the base/main loop of the program. It becomes the platform for a Dart VM that is tied to most of the APIs. However, My goal is to turn it into a usable library which means drastically changing that aspect.
+For whoever is reading this, I still have a few more things to do. I've gotten the project successfully build after removing dart from the project. Its not at the point where you can just grab this and use this as a library. I may or may not need to make modifications and/or simplifications. The project was originally designed to run as the base/main loop of the program. It becomes the platform for a Dart VM that is tied to most of the APIs. However, my goal is to turn it into a usable library which means drastically changing that aspect.
 
 Getting this project into a usable state is pretty much the first milestone.
 Some of the things I'm working on:
@@ -20,7 +20,7 @@ Some of the things I'm working on:
 * Create Outline Documentation on the overall heirachy of the code. (What is lib/ui, shell, runtime, ect)
 
 #### Milestones
-* -Remove DART-
+* -Remove DART- _done_
 * Working C++ Desktop Example for Windows
 * Then Linux, and OSX
 * Then Android and iOS
@@ -30,7 +30,7 @@ Some of the things I'm working on:
 * Maybe build C# / DLang wrappers to the C Interface.
 * Create a UI Builder
 
-#### Dependencies
+#### Dependencies Overview
 If I know where, why, how something is used. I'll mention it here otherwise I don't immediately know.
 * benchmark - Tools for measuring performance. Lost of tests and related stuff has been taken out. I kept this because it seems like it could be useful.
 * icu - [What is ICU?](http://site.icu-project.org/#TOC-What-is-ICU-). Handles a lot of text stuff. Used in paragraph builder (txt mentioned below).
