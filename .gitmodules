@@ -1,10 +1,6 @@
 [submodule "buildtools"]
 	path = buildtools
-	url = https://fuchsia.googlesource.com/buildtools
-	shallow = true
-[submodule "ios_tools"]
-	path = ios_tools
-	url = https://chromium.googlesource.com/chromium/src/ios.git
+	url = https://github.com/izackp/FuchsiaBuildTools.git
 	shallow = true
 [submodule "third_party/harfbuzz"]
 	path = third_party/harfbuzz
