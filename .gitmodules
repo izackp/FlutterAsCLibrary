@@ -58,6 +58,10 @@
 	path = third_party/rapidjson
 	url = https://fuchsia.googlesource.com/third_party/rapidjson
 	shallow = true
+[submodule "third_party/root_certificates"]
+	path = third_party/root_certificates
+	url = https://dart.googlesource.com/root_certificates.git
+	shallow = true
 [submodule "flutter"]
 	path = flutter
 	url = https://github.com/izackp/engine.git
