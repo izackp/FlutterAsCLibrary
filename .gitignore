@@ -20,7 +20,4 @@ tags
 Thumbs.db
 
 # directories pulled in via deps or hooks
-/buildtools/
-/flutter/
-/ios_tools/
 /out/

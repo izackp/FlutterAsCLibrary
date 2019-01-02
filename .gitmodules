@@ -1,0 +1,63 @@
+[submodule "buildtools"]
+	path = buildtools
+	url = https://fuchsia.googlesource.com/buildtools
+	shallow = true
+[submodule "ios_tools"]
+	path = ios_tools
+	url = https://chromium.googlesource.com/chromium/src/ios.git
+	shallow = true
+[submodule "third_party/harfbuzz"]
+	path = third_party/harfbuzz
+	url = https://fuchsia.googlesource.com/third_party/harfbuzz
+	shallow = true
+[submodule "third_party/icu"]
+	path = third_party/icu
+	url = https://chromium.googlesource.com/chromium/deps/icu.git
+	shallow = true
+[submodule "third_party/libjpeg-turbo"]
+	path = third_party/libjpeg-turbo
+	url = https://fuchsia.googlesource.com/third_party/libjpeg-turbo
+	shallow = true
+[submodule "third_party/libwebp"]
+	path = third_party/libwebp
+	url = https://chromium.googlesource.com/webm/libwebp.git
+	shallow = true
+[submodule "third_party/skia"]
+	path = third_party/skia
+	url = https://skia.googlesource.com/skia.git
+	shallow = true
+[submodule "third_party/vulkan"]
+	path = third_party/vulkan
+	url = https://github.com/KhronosGroup/Vulkan-Docs.git
+	shallow = true
+[submodule "third_party/boringssl"]
+	path = third_party/boringssl
+	url = https://github.com/izackp/BoringSSLRoot.git
+	shallow = true
+[submodule "third_party/colorama/src"]
+	path = third_party/colorama/src
+	url = https://chromium.googlesource.com/external/colorama.git
+	shallow = true
+[submodule "third_party/freetype2"]
+	path = third_party/freetype2
+	url = https://fuchsia.googlesource.com/third_party/freetype2
+	shallow = true
+[submodule "third_party/gyp"]
+	path = third_party/gyp
+	url = https://chromium.googlesource.com/external/gyp.git
+	shallow = true
+[submodule "third_party/benchmark"]
+	path = third_party/benchmark
+	url = https://fuchsia.googlesource.com/third_party/benchmark
+	shallow = true
+[submodule "third_party/googletest"]
+	path = third_party/googletest
+	url = https://fuchsia.googlesource.com/third_party/googletest
+	shallow = true
+[submodule "third_party/rapidjson"]
+	path = third_party/rapidjson
+	url = https://fuchsia.googlesource.com/third_party/rapidjson
+	shallow = true
+[submodule "flutter"]
+	path = flutter
+	url = https://github.com/izackp/engine.git
