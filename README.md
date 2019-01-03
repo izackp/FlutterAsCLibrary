@@ -34,7 +34,6 @@ Some of the things I'm working on:
 If I know where, why, how something is used. I'll mention it here otherwise I don't immediately know.
 * benchmark - Tools for measuring performance. Lost of tests and related stuff has been taken out. I kept this because it seems like it could be useful.
 * icu - [What is ICU?](http://site.icu-project.org/#TOC-What-is-ICU-). Handles a lot of text stuff. Used in paragraph builder (txt mentioned below).
-* colorama - looks like its scripts to colorize the terminal. Seemingly unnecessary. I will probably try to remove it.
 * expat - XML Parser.
 * freetype2 - Font Library.
 * googletest - Unit testing library.

@@ -26,10 +26,6 @@
 	path = third_party/vulkan
 	url = https://github.com/KhronosGroup/Vulkan-Docs.git
 	shallow = true
-[submodule "third_party/colorama/src"]
-	path = third_party/colorama/src
-	url = https://chromium.googlesource.com/external/colorama.git
-	shallow = true
 [submodule "third_party/freetype2"]
 	path = third_party/freetype2
 	url = https://fuchsia.googlesource.com/third_party/freetype2
