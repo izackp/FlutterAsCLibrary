@@ -18,10 +18,12 @@
 	path = third_party/libwebp
 	url = https://chromium.googlesource.com/webm/libwebp.git
 	shallow = true
+	branch = 0.6.0
 [submodule "third_party/skia"]
 	path = third_party/skia
 	url = https://skia.googlesource.com/skia.git
 	shallow = true
+	branch = flutter/1.0
 [submodule "third_party/vulkan"]
 	path = third_party/vulkan
 	url = https://github.com/KhronosGroup/Vulkan-Docs.git
@@ -45,10 +47,6 @@
 [submodule "third_party/rapidjson"]
 	path = third_party/rapidjson
 	url = https://fuchsia.googlesource.com/third_party/rapidjson
-	shallow = true
-[submodule "third_party/root_certificates"]
-	path = third_party/root_certificates
-	url = https://dart.googlesource.com/root_certificates.git
 	shallow = true
 [submodule "flutter"]
 	path = flutter

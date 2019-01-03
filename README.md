@@ -14,13 +14,13 @@ Some of the things I'm working on:
 #### Building the Project
 
 #### TODO
-* Some git commits needed are unreachable since we're using shallow checkout for submodules. 
+* Some git commits needed are unreachable when using -depth 1 option checkout for submodules. I would like to make the repo easy to checkout, so I may fork some of the dependecies so they may be accessable without downloading 2GB of data.
 * Add Instructional documention for checking out the code.
 * Add instructions on how to build the project and use GN (GN is the build system for this project; it replaces CMAKE)
 * Create Outline Documentation on the overall heirachy of the code. (What is lib/ui, shell, runtime, ect)
 
 #### Milestones
-* -Remove DART- _done_
+* ~~Remove DART~~ _done_
 * Working C++ Desktop Example for Windows
 * Then Linux, and OSX
 * Then Android and iOS
